@@ -1,19 +1,19 @@
 <template>
   <nav class="filter-nav">
     <button @click="updateFilter('all')" :class="{ active: current === 'all' }">
-      View All
+      Ver Todos
     </button>
     <button
       @click="updateFilter('completed')"
       :class="{ active: current === 'completed' }"
     >
-      Completed
+      Completados
     </button>
     <button
       @click="updateFilter('ongoing')"
       :class="{ active: current === 'ongoing' }"
     >
-      Ongoing
+      Em Curso
     </button>
   </nav>
 </template>

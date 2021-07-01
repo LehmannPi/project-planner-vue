@@ -1,11 +1,11 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <!-- IMPORTANT TO .PREVENT -->
-    <label>Title</label>
+    <label>Título</label>
     <input type="text" v-model="title" required />
-    <label>Details</label>
+    <label>Detalhes</label>
     <textarea v-model="details" required></textarea>
-    <button>Add Project</button>
+    <button>Adicionar Projeto</button>
   </form>
 </template>
 

@@ -2,19 +2,19 @@
   "projects": [
     {
       "id": 1,
-      "title": "Create new homepage banner",
+      "title": "Criar banner da pagina principal",
       "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet voluptates animi fuga sunt totam! Quidem quia tempora omnis consequuntur nulla, voluptatum inventore eligendi dolore, repellendus cumque, earum voluptatibus enim nam!",
       "complete": true
     },
     {
       "id": 2,
-      "title": "Make marketing email",
+      "title": "Enviar e-mail de marketing",
       "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum beatae iure eligendi voluptatem excepturi tenetur hic dolorem architecto velit unde, odio fuga quis aliquid ratione culpa vero doloribus, amet quia.",
-      "complete": true
+      "complete": false
     },
     {
-      "title": "Make new website",
-      "details": "Any descriptions of the site",
+      "title": "Criar página de vendas",
+      "details": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus, incidunt sequi iste rem sunt eaque! Molestias voluptatibus dolorum veniam aut eveniet, sint harum sit corrupti repellat totam quidem deleniti accusantium.",
       "complete": false,
       "id": 3
     }

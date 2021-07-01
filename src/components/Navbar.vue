@@ -1,7 +1,7 @@
 <template>
   <nav class="main-nav">
-      <router-link :to="{ name: 'Home' }">Projects</router-link>
-      <router-link :to="{ name: 'AddProject' }">Add a New Project</router-link>
+      <router-link :to="{ name: 'Home' }">Projetos</router-link>
+      <router-link :to="{ name: 'AddProject' }">Adicionar Novo Projeto</router-link>
   </nav>
 </template>
 
