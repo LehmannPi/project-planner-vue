@@ -19,13 +19,12 @@ export default {
     };
   },
   mounted() {
-    //   to get request don't need second argument on fetch
-    fetch(this.uri).then((res) =>
-      res.json().then((data) => {
-        this.title = data.title;
-        this.details = data.details;
-      })
-    );
+    fetch(this.uri)
+      .then(res => res.json())
+      .then(data => {
+        this.title = data.title
+        this.details = data.details
+      }).catch(err => console.log(err))
   },
   methods: {
     handleSubmit() {
