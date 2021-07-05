@@ -27,7 +27,7 @@ debugger;
       for (let i = 0; i < tarefas.lenght; i++) {
         console.log(tarefas[i]);
         // if (typeof tarefas[i] == "object") {
-          Object.assign(auxt, tarefas[i]);
+          auxt = Object.assign(auxt, tarefas[i]);
         // }
       }
       console.log(auxt);
