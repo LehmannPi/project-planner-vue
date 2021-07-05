@@ -1,6 +1,7 @@
 <template>
   <nav class="filter-nav">
     <button @click="updateFilter('all')" :class="{ active: current === 'all' }">
+      <!-- classe (css) do componente é active se current === 'all', falso do contrário -->
       Ver Todos
     </button>
     <button

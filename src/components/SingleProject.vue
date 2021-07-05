@@ -5,7 +5,7 @@
       <h3 @click="showDetails = !showDetails">{{ project.title }}</h3>
       <div class="icons">
         <span @click="deleteProject" class="material-icons">delete</span>
-        <router-link :to="{ name: 'EditProject', params: { id: project.id }}">
+        <router-link :to="{ name: 'EditProject', params: { id: project.id } }">
           <span class="material-icons">edit</span>
         </router-link>
         <span @click="toggleComplete" class="material-icons tick">done</span>
@@ -13,12 +13,26 @@
     </div>
     <div v-if="showDetails" class="details">
       <p>{{ project.details }}</p>
+      <div class="actions">
+        <h4>Tarefas</h4>
+        <div class="filter-nav task">
+          <router-link :to="{ name: 'AddTask', params: { id: project.id } }">
+            <button>Nova Tarefa</button>
+          </router-link>
+        </div>
+      </div>
+      <div class="tasks" v-for="task in project['tasks']" :key="task.task">
+        <Tasks :task="task" :id="project.id" :tasks="project['tasks']" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Tasks from "./Tasks.vue";
+
 export default {
+  components: { Tasks },
   props: ["project"],
   data() {
     return {
@@ -41,11 +55,21 @@ export default {
       })
         .then(() => {
           this.$emit("complete", this.project.id);
+          // deve ser amarrado à view desejada com @complete. Seu parametro, especificado apenas em methods.
         })
         .catch((err) => console.log(err));
     },
+    // toggleCompleteTask(task) {
+    //   fetch(this.uri, {
+    //     method: "PATCH",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({ task.done: !this.project.tasks }),
+    //   })
+    // }
   },
 };
+
+// ! CRIAR .CSS PARA ADD E EDIT PROJECTS
 </script>
 
 <style scoped>
@@ -60,6 +84,12 @@ export default {
 h3 {
   cursor: pointer;
 }
+h4 {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
 .actions {
   display: flex;
   justify-content: space-between;
@@ -79,5 +109,25 @@ h3 {
 }
 .project.complete .tick {
   color: #00ce89;
+}
+.filter-nav button:hover {
+  color: #555;
+}
+.tasks {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 16px;
+  padding-left: 1em;
+  /* color: black; */
+}
+.tasks label {
+  width: 60%;
+}
+.tasks.complete {
+  text-decoration: line-through;
+}
+.tasks .icons {
+  padding-right: 2em;
 }
 </style>
