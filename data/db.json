@@ -2,33 +2,40 @@
   "projects": [
     {
       "id": 1,
-      "title": "Criar banner da pagina principal ",
-      "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet voluptates animi fuga sunt totam!",
-      "tasks": [
-        {
-          "task": "Adaptar tela",
-          "done": true
-        },
-        {
-          "task": "Adaptar botões",
-          "done": false
-        }
-      ],
+      "title": "Criar banner da pagina principal (Editado)",
+      "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       "complete": true
     },
     {
       "id": 2,
       "title": "Enviar e-mail de marketing",
       "details": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum beatae iure eligendi voluptatem.",
-      "tasks": [],
-      "complete": true
+      "complete": false
     },
     {
-      "title": "PROJETO",
-      "details": "Delta lhes deve dolares.",
+      "title": "Tarefas",
+      "details": "123",
       "complete": false,
-      "tasks": [],
-      "id": 3
+      "id": 4
+    }
+  ],
+  "tasks": [
+    {
+      "projectId": "1",
+      "task": "Adaptar tela",
+      "done": false,
+      "id": 1
+    },
+    {
+      "projectId": "1",
+      "task": "Adaptar botões",
+      "done": false,
+      "id": 2
+    },
+    {
+      "projectId": "2",
+      "task": "Redigir e-mail",
+      "id": 7
     }
   ]
 }

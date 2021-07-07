@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import AddProject from "../views/AddProject.vue";
 import EditProject from "../views/EditProject.vue";
 import AddTask from "../views/AddTask.vue";
+import EditTask from "../views/EditTask.vue";
 
 const routes = [
   {
@@ -16,15 +17,27 @@ const routes = [
     component: AddProject,
   },
   {
-    path: "/projects/:id",
+    path: "/projects/?:id",
     name: "EditProject",
     component: EditProject,
     props: true,
   },
+  // {
+  //   path: "/projects/?:id",
+  //   name: "Project",
+  //   component: Project,
+  //   props: true,
+  // },
   {
     path: "/projects/add",
     name: "AddTask",
     component: AddTask,
+    props: true,
+  },
+  {
+    path: "/projects/?:id",
+    name: "EditTask",
+    component: EditTask,
     props: true,
   },
 ];

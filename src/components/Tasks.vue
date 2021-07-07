@@ -1,62 +1,77 @@
 <template>
   <input
     type="checkbox"
-    @click="toggleCompleteTask(task)"
+    @click="toggleCompleteTask()"
     v-model="task.done"
     :value="done"
   />
-  <label class="task">{{ task.task }}</label>
+  <label class="task" :class="{ done: task.done }">{{ task.task }}</label>
   <div class="icons">
-    <span @click="showStuff" class="material-icons">edit</span>
-    <span class="material-icons">delete</span>
+    <router-link :to="{ name: 'EditTask', params: { id: task.id } }">
+      <span class="material-icons">edit</span>
+    </router-link>
+    <span @click="deleteTask" class="material-icons">delete</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["task", "id", "tasks"],
+  props: ["task"],
   data() {
     return {
-      uri: "http://localhost:3000/projects/" + this.id,
+      uri: "http://localhost:3000/tasks/" + this.task.id,
     };
   },
   methods: {
-    transformaEmObj(tarefas) {
-      let auxt = {};
-debugger;
-      for (let i = 0; i < tarefas.lenght; i++) {
-        console.log(tarefas[i]);
-        // if (typeof tarefas[i] == "object") {
-          auxt = Object.assign(auxt, tarefas[i]);
-        // }
-      }
-      console.log(auxt);
-      return auxt;
-    },
-    showStuff() {
-      //   console.log(this.task);
-      //   console.log(this.id);
-      //   console.log(this.tasks);
-      var aux = this.transformaEmObj(this.tasks);
+    toggleCompleteTask() {
       fetch(this.uri, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          tasks: [
-            Object.assign(aux, {
-              task: this.task.task,
-              done: !this.task.done,
-            }),
-          ],
+          done: !this.task.done,
         }),
-      }).catch((err) => console.log(err));
+      })
+        .then(() => {
+          this.$emit("done", this.task.id);
+        })
+        .catch((err) => console.log(err));
+    },
+    deleteTask() {
+      fetch(this.uri, { method: "DELETE" })
+        .then(() => this.$emit("delete", this.task.id))
+        .catch((err) => console.log(err));
     },
   },
 };
-//   body: JSON.stringify({ tasks: [{
-//       task: this.task.task,
-//       done: !this.task.done
 </script>
 
 <style>
+/*  Nunca usar tags nativas no css em vue */
+.tasks {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 16px;
+  padding-left: 1em;
+  /* color: black; */
+}
+.tasks label {
+  width: 60%;
+}
+.tasks.complete {
+  text-decoration: line-through;
+}
+.tasks .icons {
+  padding-right: 2em;
+}
+.material-icons {
+  color: #bbb;
+  cursor: pointer;
+}
+.material-icons:hover {
+  color: #777;
+}
+.task.done {
+  text-decoration: line-through;
+}
 </style>

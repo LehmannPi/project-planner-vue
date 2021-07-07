@@ -21,8 +21,14 @@
           </router-link>
         </div>
       </div>
-      <div class="tasks" v-for="task in project['tasks']" :key="task.task">
-        <Tasks :task="task" :id="project.id" :tasks="project['tasks']" />
+
+      <div class="tasks" v-for="task in tasks" :key="task.id">
+        <Tasks
+          v-if="project.id == task.projectId"
+          :task="task"
+          @done="handleDone"
+          @delete="handleDelete"
+        />
       </div>
     </div>
   </div>
@@ -36,9 +42,16 @@ export default {
   props: ["project"],
   data() {
     return {
+      tasks: [],
       showDetails: false,
       uri: "http://localhost:3000/projects/" + this.project.id,
     };
+  },
+  mounted() {
+    fetch("http://localhost:3000/tasks")
+      .then((res) => res.json())
+      .then((data) => (this.tasks = data))
+      .catch((err) => console.log(err));
   },
   methods: {
     deleteProject() {
@@ -59,13 +72,17 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-    // toggleCompleteTask(task) {
-    //   fetch(this.uri, {
-    //     method: "PATCH",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ task.done: !this.project.tasks }),
-    //   })
-    // }
+    handleDone(id) {
+      let t = this.tasks.find((task) => {
+        return this.tasks.id == id;
+      });
+      t.done = !t.done;
+    },
+    handleDelete(id) {
+      this.tasks = this.tasks.filter((task) => {
+        return task.id !== id;
+      });
+    }
   },
 };
 
@@ -108,26 +125,10 @@ h4 {
   border-left: 4px solid #00ce89;
 }
 .project.complete .tick {
-  color: #00ce89;
+  color: #5d9784;
 }
 .filter-nav button:hover {
   color: #555;
-}
-.tasks {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  font-size: 16px;
-  padding-left: 1em;
-  /* color: black; */
-}
-.tasks label {
-  width: 60%;
-}
-.tasks.complete {
-  text-decoration: line-through;
-}
-.tasks .icons {
-  padding-right: 2em;
+  cursor: pointer;
 }
 </style>
