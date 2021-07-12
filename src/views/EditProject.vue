@@ -4,13 +4,26 @@
     <input type="text" v-model="title" required />
     <label>Detalhes</label>
     <textarea v-model="details" required></textarea>
+
+    <div class="tasks" v-for="task in tasks" :key="task.id">
+      <Tasks
+        
+        :task="task"
+        @done="handleDone"
+        @delete="handleDelete"
+      />
+    </div>
     <button>Atualizar Projeto</button>
   </form>
 </template>
 
 <script>
+import Tasks from "../components/Tasks.vue";
+
 export default {
-  props: ["id"],
+  props: ["id", "prj"],
+  components: {Tasks},
+
   data() {
     return {
       title: "",
@@ -20,11 +33,12 @@ export default {
   },
   mounted() {
     fetch(this.uri)
-      .then(res => res.json())
-      .then(data => {
-        this.title = data.title
-        this.details = data.details
-      }).catch(err => console.log(err))
+      .then((res) => res.json())
+      .then((data) => {
+        this.title = data.title;
+        this.details = data.details;
+      })
+      .catch((err) => console.log(err));
   },
   methods: {
     handleSubmit() {

@@ -13,6 +13,7 @@
     </div>
     <div v-if="showDetails" class="details">
       <p>{{ project.details }}</p>
+
       <div class="actions">
         <h4>Tarefas</h4>
         <div class="filter-nav task">
@@ -132,3 +133,4 @@ h4 {
   cursor: pointer;
 }
 </style>
+

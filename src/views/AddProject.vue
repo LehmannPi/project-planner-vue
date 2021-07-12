@@ -5,34 +5,88 @@
     <input type="text" v-model="title" required />
     <label>Detalhes</label>
     <textarea v-model="details" required></textarea>
-    <button>Adicionar Projeto</button>
+    <div>
+      <div class="div-tarefas">
+        <label>Tarefas</label>
+        <label @click="addTask" class="task">Adicionar Tarefa</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="tasks" v-for="(task, index) in tasks" :key="index">
+        <!-- TAREFAS LISTADAS LOCALMENTE -->
+        <input type="text" required />
+        <span class="material-icons" @click="deleteTask(index)">delete</span>
+      </div>
+    </div>
+    <button :disabled="!active">Adicionar Projeto</button>
   </form>
 </template>
 
 <script>
+import Tasks from "../components/Tasks.vue";
+
 export default {
+  components: { Tasks },
   data() {
     return {
       title: "",
       details: "",
+      tasks: [{ task: "" }], // done, id e projectId são produzidos/inferidos/gerados
+      active: true,
+      projects: [],
     };
   },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
+      this.active = !this.active;
       let project = {
         title: this.title,
         details: this.details,
         complete: false,
       };
-      fetch("http://localhost:3000/projects", {
+      await fetch("http://localhost:3000/projects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(project),
+      });
+
+      await fetch("http://localhost:3000/projects")
+        .then((res) => res.json())
+        .then((data) => (this.projects = data))
+        .catch((err) => console.log(err));
+
+      console.log(this.projects);
+
+      // ! Pega o projeto que acabou de ser adicionado e a div dos campos de tarefa
+      let last = this.projects[this.projects.length - 1];
+      let camposTarefa = document.getElementsByClassName("tasks"); //[i].children[0].value
+      // * LOOP NO MODELO t[i]["campo_desejado"] = X
+      // await (() => {
+      debugger;
+      for (let i = 0; i < this.tasks.length; i++) {
+        this.tasks[i]["projectId"] = last.id;
+        this.tasks[i]["task"] = camposTarefa[i].children[0].value;
+        this.tasks[i]["done"] = false;
+      }
+      // });
+      fetch("http://localhost:3000/tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(this.tasks),
       })
         .then(() => {
           this.$router.push("/");
         })
         .catch((err) => console.log(err));
+    },
+    addTask() {
+      this.tasks.push({ task: "" });
+    },
+    deleteTask(index) {
+      // this.tasks.splice(this.tasks.indexOf(task), 1);
+      this.tasks.shift();
+      document.getElementsByClassName("tasks")[index].children[0].value = "";
     },
   },
 };
@@ -76,5 +130,23 @@ form button {
   border: 0;
   border-radius: 6px;
   font-size: 16px;
+}
+form button:disabled {
+  background-color: #bbb;
+}
+form .tasks {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+form .tasks input {
+  width: 80%;
+}
+.div-tarefas {
+  display: flex;
+  justify-content: space-between;
+}
+.task:hover {
+  color: #777;
 }
 </style>
