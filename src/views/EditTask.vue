@@ -1,7 +1,14 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <label>Tarefa</label>
-    <input type="text" v-model="task" required />
+    <div class="dados">
+      <input class="task" type="text" v-model="task" required />
+      <div class="time">
+        <span class="material-icons timer"> timer </span>
+        <input class="time-val" type="number" step="0.1" v-model="time" required />
+        <label>horas</label>
+      </div>
+    </div>
     <button>Editar Tarefa</button>
   </form>
 </template>
@@ -12,6 +19,7 @@ export default {
   data() {
     return {
       task: "",
+      time: 0,
       uri: "http://localhost:3000/tasks/" + this.id,
     };
   },
@@ -20,6 +28,7 @@ export default {
       .then((res) => res.json())
       .then((data) => {
         this.task = data.task;
+        this.time = data.time;
       })
       .catch((err) => console.log(err));
   },
@@ -28,7 +37,7 @@ export default {
       fetch(this.uri, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ task: this.task }),
+        body: JSON.stringify({ task: this.task, time: this.time }),
       })
         .then(() => {
           this.$router.push("/");
@@ -58,13 +67,13 @@ input {
   padding: 10px;
   border: 0;
   border-bottom: 1px solid #ddd;
-  width: 100%;
+  width: 65%;
   box-sizing: border-box;
 }
 textarea {
   border: 1px solid #ddd;
   padding: 10px;
-  width: 100%;
+  /* width: 100%; */
   box-sizing: border-box;
   height: 100px;
 }
@@ -77,5 +86,28 @@ form button {
   border: 0;
   border-radius: 6px;
   font-size: 16px;
+}
+.dados {
+  width: 100%;
+  display: flex;
+  /* box-sizing: border-box; */
+  justify-content: space-between;
+  align-content: center;
+}
+.time {
+  display: flex;
+  width: 30%;
+  justify-content: space-around;
+  /* align-content: center; */
+}
+.time input {
+  width: 45%;
+}
+.time label {
+  margin: auto;
+}
+.timer {
+  position: relative;
+  margin: auto;
 }
 </style>

@@ -1,18 +1,26 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <label>Tarefa</label>
-    <input type="text" v-model="task" required />
+    <div class="dados">
+      <input class="task" type="text" v-model="task" required />
+      <div class="time">
+        <span class="material-icons timer"> timer </span>
+        <input class="time-val" type="number" step="0.1" v-model="time" required />
+        <label>horas</label>
+      </div>
+    </div>
     <button>Criar Tarefa</button>
   </form>
 </template>
 
 <script>
 export default {
-  props: ['id'],
+  props: ["id"],
   data() {
     return {
       task: "",
       done: false,
+      time: 0,
     };
   },
   methods: {
@@ -20,6 +28,7 @@ export default {
       let task = {
         projectId: this.id,
         task: this.task,
+        time: this.time,
         done: this.false,
       };
       fetch("http://localhost:3000/tasks/", {
@@ -55,13 +64,13 @@ input {
   padding: 10px;
   border: 0;
   border-bottom: 1px solid #ddd;
-  width: 100%;
+  width: 65%;
   box-sizing: border-box;
 }
 textarea {
   border: 1px solid #ddd;
   padding: 10px;
-  width: 100%;
+  /* width: 100%; */
   box-sizing: border-box;
   height: 100px;
 }
@@ -74,5 +83,28 @@ form button {
   border: 0;
   border-radius: 6px;
   font-size: 16px;
+}
+.dados {
+  width: 100%;
+  display: flex;
+  /* box-sizing: border-box; */
+  justify-content: space-between;
+  align-content: center;
+}
+.time {
+  display: flex;
+  width: 30%;
+  justify-content: space-around;
+  /* align-content: center; */
+}
+.time input {
+  width: 45%;
+}
+.time label {
+  margin: auto;
+}
+.timer {
+  position: relative;
+  margin: auto;
 }
 </style>

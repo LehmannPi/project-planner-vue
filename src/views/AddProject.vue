@@ -15,7 +15,7 @@
     <div>
       <div class="tasks" v-for="(task, index) in tasks" :key="index">
         <!-- TAREFAS LISTADAS LOCALMENTE -->
-        <input type="text" required />
+        <input type="text" v-model="task.task" required />
         <span class="material-icons" @click="deleteTask(index)">delete</span>
       </div>
     </div>
@@ -60,33 +60,32 @@ export default {
 
       // ! Pega o projeto que acabou de ser adicionado e a div dos campos de tarefa
       let last = this.projects[this.projects.length - 1];
-      let camposTarefa = document.getElementsByClassName("tasks"); //[i].children[0].value
+      // let camposTarefa = document.getElementsByClassName("tasks"); //[i].children[0].value
       // * LOOP NO MODELO t[i]["campo_desejado"] = X
-      // await (() => {
-      debugger;
       for (let i = 0; i < this.tasks.length; i++) {
         this.tasks[i]["projectId"] = last.id;
-        this.tasks[i]["task"] = camposTarefa[i].children[0].value;
         this.tasks[i]["done"] = false;
+        await fetch("http://localhost:3000/tasks", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(this.tasks[i]),
+        }).catch((err) => console.log(err));
       }
-      // });
-      fetch("http://localhost:3000/tasks", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.tasks),
-      })
-        .then(() => {
-          this.$router.push("/");
-        })
-        .catch((err) => console.log(err));
+      // .then(() => {
+      this.$router.push("/");
+      // })
     },
     addTask() {
       this.tasks.push({ task: "" });
     },
     deleteTask(index) {
-      // this.tasks.splice(this.tasks.indexOf(task), 1);
-      this.tasks.shift();
-      document.getElementsByClassName("tasks")[index].children[0].value = "";
+      this.tasks.splice(index, 1);
+      // this.tasks.shift();
+      // document.getElementsByClassName("tasks")[index].children[0].value = "";
+      // // TODO: implementar deslocamento de valores
+      // // TODO: 1 deleta o valor no local;
+      // // TODO: sobe todos os valores abaixo em 1 casa;
+      // // TODO: usa o shift();
     },
   },
 };

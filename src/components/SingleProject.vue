@@ -31,6 +31,11 @@
           @delete="handleDelete"
         />
       </div>
+
+      <div class="actions tempo" v-if="totalTime(project.id) != 0">
+        <h4>Duração Total:</h4>
+        <label>{{ totalTime(project.id) }}  minutos</label>
+      </div>
     </div>
   </div>
 </template>
@@ -83,8 +88,18 @@ export default {
       this.tasks = this.tasks.filter((task) => {
         return task.id !== id;
       });
-    }
+    },
+    totalTime(id) {
+      let sum = .0;
+      this.tasks.forEach((task) => {
+        if (task.projectId == id) {
+          sum += parseFloat(task.time);
+        }
+      });
+      return (sum*60);
+    },
   },
+  
 };
 
 // ! CRIAR .CSS PARA ADD E EDIT PROJECTS
@@ -131,6 +146,23 @@ h4 {
 .filter-nav button:hover {
   color: #555;
   cursor: pointer;
+}
+.actions.tempo {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+}
+.actions.tempo > h4 {
+  padding-right: 20px;
+  margin: 1.5em 0;
+}
+.filter-nav.task{
+  display: flex;
+  justify-content: flex-end;
+}
+.tasks{
+  display: flex;
+  justify-content: space-between;
 }
 </style>
 

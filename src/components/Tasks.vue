@@ -6,6 +6,10 @@
     :value="done"
   />
   <label class="task" :class="{ done: task.done }">{{ task.task }}</label>
+  <div class="time">
+    <span class="material-icons timer"> timer </span>
+    <label> {{ task.time }} h</label>
+  </div>
   <div class="icons">
     <router-link :to="{ name: 'EditTask', params: { id: task.id } }">
       <span class="material-icons">edit</span>
@@ -42,6 +46,7 @@ export default {
         .catch((err) => console.log(err));
     },
   },
+  
 };
 </script>
 
@@ -55,8 +60,13 @@ export default {
   padding-left: 1em;
   /* color: black; */
 }
-.tasks label {
-  width: 60%;
+.task {
+  width: 50%;
+}
+.time {
+  display: flex;
+  width: 15%;
+  justify-content: space-between;
 }
 .tasks.complete {
   text-decoration: line-through;
@@ -68,10 +78,16 @@ export default {
   color: #bbb;
   cursor: pointer;
 }
+
 .material-icons:hover {
   color: #777;
+}
+.material-icons.timer{
+  color: #777;
+  cursor: default;
 }
 .task.done {
   text-decoration: line-through;
 }
+
 </style>

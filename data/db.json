@@ -28,60 +28,43 @@
   "tasks": [
     {
       "projectId": "1",
-      "task": "Adaptar tela",
+      "task": "Adaptar botões restantes",
       "done": false,
+      "time": "1.5",
       "id": 1
     },
     {
       "projectId": "1",
       "task": "Adaptar botões",
       "done": false,
+      "time": 0.5,
       "id": 2
     },
-    [
-      {
-        "task": "1234",
-        "projectId": 4,
-        "done": false
-      }
-    ],
-    [
-      {
-        "task": "1234",
-        "projectId": 4,
-        "done": false
-      }
-    ],
-    [
-      {
-        "task": "1234",
-        "projectId": 4,
-        "done": false
-      }
-    ],
-    [
-      {
-        "task": "1234",
-        "projectId": 4,
-        "done": false
-      }
-    ],
-    [
-      {
-        "task": ""
-      }
-    ],
-    [
-      {
-        "task": ""
-      }
-    ],
-    [
-      {
-        "task": "abcd",
-        "projectId": 4,
-        "done": false
-      }
-    ]
+    {
+      "task": "1234",
+      "projectId": 4,
+      "done": false,
+      "time": 0.5,
+      "id": 3
+    },
+    {
+      "projectId": "4",
+      "task": "4321",
+      "id": 4,
+      "time": 132.6,
+      "done": false
+    },
+    {
+      "task": "1234 ",
+      "projectId": "1",
+      "time": 1,
+      "id": 5
+    },
+    {
+      "projectId": "1",
+      "task": "Tarefa Teste de Função",
+      "time": "22.2",
+      "id": 6
+    }
   ]
 }
