@@ -17,12 +17,6 @@
       "details": "Detalhes de projeto",
       "complete": false,
       "id": 3
-    },
-    {
-      "title": "1234",
-      "details": "1234",
-      "complete": false,
-      "id": 4
     }
   ],
   "tasks": [
@@ -41,30 +35,17 @@
       "id": 2
     },
     {
-      "task": "1234",
-      "projectId": 4,
-      "done": false,
-      "time": 0.5,
-      "id": 3
-    },
-    {
-      "projectId": "4",
-      "task": "4321",
-      "id": 4,
-      "time": 132.6,
-      "done": false
-    },
-    {
-      "task": "1234 ",
       "projectId": "1",
-      "time": 1,
-      "id": 5
-    },
-    {
-      "projectId": "1",
-      "task": "Tarefa Teste de Função",
+      "task": "Tarefa teste da função 2",
       "time": "22.2",
       "id": 6
+    },
+    {
+      "projectId": "3",
+      "task": "Tarefa teste de inclusão",
+      "time": "2.5",
+      "id": 7,
+      "done": false
     }
   ]
 }

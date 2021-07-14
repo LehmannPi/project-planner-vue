@@ -8,14 +8,27 @@
     <div>
       <div class="div-tarefas">
         <label>Tarefas</label>
-        <label @click="addTask" class="task">Adicionar Tarefa</label>
+        <label @click="addTask" class="aTask">Adicionar Tarefa</label>
       </div>
     </div>
 
-    <div class="tasks" v-for="(task, index) in tasks" :key="index">
-      <!-- TAREFAS LISTADAS LOCALMENTE -->
-      <input type="text" v-model="task.task" required />
-      <span class="material-icons" @click="deleteTask(index)">delete</span>
+    <div>
+      <div class="tasks" v-for="(task, index) in tasks" :key="index">
+        <!-- TAREFAS LISTADAS LOCALMENTE -->
+        <input class="task" type="text" v-model="task.task" required />
+        <div class="time">
+          <span class="material-icons timer"> timer </span>
+          <input
+            class="time-val"
+            type="number"
+            step="0.1"
+            v-model="task.time"
+            required
+          />
+          <label>horas</label>
+          <span class="material-icons del" @click="deleteTask(index)">delete</span>
+        </div>
+      </div>
     </div>
     <!-- <div class="tasks" v-for="task in tasks" :key="task.id">
         <Tasks :task="task" @done="handleDone" @delete="handleDelete" />
@@ -71,11 +84,9 @@ export default {
         task.projectId = this.tasks[0].projectId;
       });
 
-      debugger;
       for (let index = 0; index < this.tasks.length; index++) {
-        debugger;
         if (this.tasks[index].id === undefined) {
-          await fetch("http://localhost:3000/tasks" , {
+          await fetch("http://localhost:3000/tasks", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -146,25 +157,45 @@ form button {
   border-radius: 6px;
   font-size: 16px;
 }
-.tasks-div {
-  padding-top: 25px;
-}
 form button:disabled {
   background-color: #bbb;
 }
 form .tasks {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-}
-form .tasks input {
-  width: 80%;
+  padding: 0;
 }
 .div-tarefas {
   display: flex;
   justify-content: space-between;
 }
-.task:hover {
+.task {
+  width: 63%;
+}
+.aTask {
+  width: fit-content;
+}
+.aTask:hover {
   color: #777;
+}
+.time {
+  display: flex;
+  width: 35%;
+  justify-content: space-around;
+  /* align-content: center; */
+}
+.time input {
+  width: 40%;
+}
+.time label {
+  margin: auto;
+}
+.timer {
+  
+  margin: auto;
+}
+.del {
+  margin: auto;
 }
 </style>
