@@ -92,6 +92,7 @@ export default {
             body: JSON.stringify({
               task: this.tasks[index].task,
               projectId: this.tasks[index].projectId,
+              time: this.tasks[index].time,
             }),
           }).catch((err) => console.log(err));
         } else {
@@ -101,6 +102,7 @@ export default {
             body: JSON.stringify({
               task: this.tasks[index].task,
               projectId: this.tasks[index].projectId,
+              time: this.tasks[index].time,
             }),
           }).catch((err) => console.log(err));
         }
