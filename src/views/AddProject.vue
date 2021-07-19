@@ -102,18 +102,12 @@ export default {
     },
     deleteTask(index) {
       this.tasks.splice(index, 1);
-      // this.tasks.shift();
-      // document.getElementsByClassName("tasks")[index].children[0].value = "";
-      // // TODO: implementar deslocamento de valores
-      // // TODO: 1 deleta o valor no local;
-      // // TODO: sobe todos os valores abaixo em 1 casa;
-      // // TODO: usa o shift();
     },
   },
 };
 </script>
 
-<style scoped>
+<style>
 form {
   background: white;
   padding: 20px;

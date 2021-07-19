@@ -5,7 +5,13 @@
       <input class="task" type="text" v-model="task" required />
       <div class="time">
         <span class="material-icons timer"> timer </span>
-        <input class="time-val" type="number" step="0.1" v-model="time" required />
+        <input
+          class="time-val"
+          type="number"
+          step="0.1"
+          v-model="time"
+          required
+        />
         <label>horas</label>
       </div>
     </div>
@@ -14,6 +20,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   props: ["id"],
   data() {
@@ -33,12 +41,17 @@ export default {
       .catch((err) => console.log(err));
   },
   methods: {
-    handleSubmit() {
-      fetch(this.uri, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ task: this.task, time: this.time }),
-      })
+    async handleSubmit() {
+      await axios
+        .patch(this.uri, {
+          task: this.task,
+          time: this.time,
+        })
+        // fetch(this.uri, {
+        //   method: "PATCH",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify({ task: this.task, time: this.time }),
+        // })
         .then(() => {
           this.$router.push("/");
         })

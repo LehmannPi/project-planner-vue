@@ -26,7 +26,9 @@
             required
           />
           <label>horas</label>
-          <span class="material-icons del" @click="deleteTask(index)">delete</span>
+          <span class="material-icons del" @click="deleteTask(index)"
+            >delete</span
+          >
         </div>
       </div>
     </div>
@@ -112,9 +114,17 @@ export default {
     addTask() {
       this.tasks.push({ task: "" });
     },
-    deleteTask(index) {
+    async deleteTask(index) {
+      await fetch("http://localhost:3000/tasks/" + this.tasks[index].id, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          task: this.tasks[index].task,
+          projectId: this.tasks[index].projectId,
+          time: this.tasks[index].time,
+        }),
+      }).catch((err) => console.log(err));
       this.tasks.splice(index, 1);
-      // this.tasks.splice(this.tasks.indexOf(task), 1);
     },
   },
 };
@@ -194,7 +204,6 @@ form .tasks {
   margin: auto;
 }
 .timer {
-  
   margin: auto;
 }
 .del {
